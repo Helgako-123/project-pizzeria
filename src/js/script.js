@@ -82,11 +82,10 @@
     }
 
     initAccordion(){
-    // const thisProduct = this;//
+      const thisProduct = this;
   
       /* find the clickable trigger (the element that should react to clicking) */
-      const menuContainer = document.querySelector(select.containerOf.menu);
-      const clickableTrigger = menuContainer.querySelectorAll('.product__header');
+      const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
   
       /* START: add event listener to clickable trigger on event click */
       clickableTrigger.addEventListener('click', function(event) {
@@ -95,10 +94,12 @@
         event.preventDefault();
   
         /* find active product (product that has active class) */
-        //const activeProducts = document.querySelectorAll('.active');//
+        const activeProduct = thisProduct.element.querySelectorAll('.active');
   
         /* if there is active product and it's not thisProduct.element, remove class active from it */
-  
+        if(activeProduct == null) {
+          thisProduct.classList.remove('active');
+        } else {this.classList.toggle('active');}
         /* toggle active class on thisProduct.element */
       });
   
