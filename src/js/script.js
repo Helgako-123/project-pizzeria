@@ -232,7 +232,10 @@
       const newValue = parseInt(value);
 
       /* TODO: Add validation */
-      if(thisWidget.value !== newValue && !isNaN(newValue)) {
+      settings.amountWidget.defaultMin == 0;
+      settings.amountWidget.defaultMax == 10;
+
+      if(thisWidget.value !== newValue && !isNaN(newValue) && thisWidget.value > settings.amountWidget.defaultMin && thisWidget.value < settings.amountWidget.defaultMax) {
         thisWidget.value = newValue;
       }
 
