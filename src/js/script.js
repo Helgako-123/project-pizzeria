@@ -174,6 +174,7 @@
       thisProduct.cartButton.addEventListener('click', function(event){
         event.preventDefault();
         thisProduct.processOrder();
+        thisProduct.addToCart();
       });
     }
 
@@ -223,12 +224,12 @@
             }
           }
 
-          
-          
         }
       }
       /* multiply price by amount */
       price *= thisProduct.amountWidget.value;
+      // vprava - price for the item (single price)
+      thisProduct.priceSingle = thisProduct.priceElem;
       // update calculated price in the HTML
       thisProduct.priceElem.innerHTML = price;
     }
@@ -240,6 +241,58 @@
         thisProduct.processOrder ();
       });
     }
+
+    addToCart(){
+      const thisProduct = this;
+
+      app.cart.add(thisProduct.prepareCartProduct);
+    }
+
+    prepareCartProduct(){
+      const thisProduct = this;
+
+      const productSummary = {
+        id: thisProduct.id,
+        name: thisProduct.name,
+        amount: thisProduct.amount,
+        priceSingle: thisProduct.priceElem,
+        price: thisProduct.price,
+        params: {}, 
+      };
+
+      return productSummary;
+    }
+
+    prepareCartProductParams() {
+      const thisProduct = this;
+    
+      const formData = utils.serializeFormToObject(thisProduct.form);
+      const params = {};
+    
+      // for very category (param)
+      for(let paramId in thisProduct.data.params) {
+        const param = thisProduct.data.params[paramId];
+    
+        // create category param in params const eg. params = { ingredients: { name: 'Ingredients', options: {}}}
+        params[paramId] = {
+          label: param.label,
+          options: {}
+        }
+    
+        // for every option in this category
+        for(let optionId in param.options) {
+          const option = param.options[optionId];
+          const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
+    
+          if(optionSelected) {
+            // option is selected!
+          }
+        }
+      }
+    
+      return params;
+    }
+
   }
 
   class AmountWidget{
@@ -332,8 +385,14 @@
         console.log('clicked');
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
       });
-
     }
+
+    add(menuProduct) {
+      // const thisCart = this;
+
+      console.log('adding product', menuProduct);
+    }
+
   }
 
   const app = {
