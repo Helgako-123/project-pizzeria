@@ -286,6 +286,7 @@
     
           if(optionSelected) {
             // option is selected!
+            params[paramId].options.add(option);
           }
         }
       }
