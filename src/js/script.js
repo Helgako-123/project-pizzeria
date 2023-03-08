@@ -257,10 +257,10 @@
         amount: thisProduct.amount,
         priceSingle: thisProduct.priceElem,
         price: thisProduct.price,
-        params: {}, 
+        params: thisProduct.params, 
       };
-
       return productSummary;
+      
     }
 
     prepareCartProductParams() {
@@ -378,6 +378,7 @@
       thisCart.dom.wrapper = element;
 
       thisCart.dom.toggleTrigger = element.querySelector(select.cart.toggleTrigger);
+      thisCart.dom.productList = element.querySelector(select.cart.productList);
     }
 
     initActions(){
@@ -392,6 +393,22 @@
       // const thisCart = this;
 
       console.log('adding product', menuProduct);
+    }
+
+    renderInMenu (){
+      const thisCart = this;
+
+      /* generate HTML based on template */
+      const generatedHTML = templates.cartProduct(thisCart.products);
+
+      /* create element using utils.createElementFromHTML */
+      const generatedDOM = utils.createDOMFromHTML(generatedHTML);
+
+      /* find menu container */
+      //const cartContainer = document.querySelector(select.containerOf.cart);
+
+      /* add element to menu */
+      thisCart.dom.productList.appendChild(generatedDOM);
     }
 
   }
