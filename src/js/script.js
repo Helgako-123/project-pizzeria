@@ -257,7 +257,7 @@
         amount: thisProduct.amountWidget.value,
         priceSingle: thisProduct.priceElem,
         price: thisProduct.priceElem.innerHTML,
-        params: thisProduct.optionSelected, 
+        params: thisProduct.prepareCartProductParams(), 
       };
       return productSummary;
       
@@ -286,7 +286,7 @@
     
           if(optionSelected) {
             // option is selected!
-            params[paramId].options.add(option);
+            params[paramId] .options.add.optionId;
           }
         }
       }
